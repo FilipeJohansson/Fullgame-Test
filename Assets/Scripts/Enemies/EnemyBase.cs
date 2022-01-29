@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemyBase : MonoBehaviour {
 
     // [SerializeField] public GameManager gameManager;
+    [SerializeField] public Rigidbody2D rb;
     [SerializeField] public int maxHealth;
     [SerializeField] public int currentHealth;
     [SerializeField] public float damage;
@@ -17,7 +18,7 @@ public class EnemyBase : MonoBehaviour {
     [SerializeField] public bool isAttacking = false;
     [SerializeField] public Transform attackPoint;
     [SerializeField] public float attackRange = 1f;
-    
+
     bool isFlipped = false;
 
     public IAttack activeAttack;
@@ -38,6 +39,7 @@ public class EnemyBase : MonoBehaviour {
     // Update is called once per frame
     void FixedUpdate() {
         LookAtPlayer();
+        FollowPlayer();
     }
 
     public void ResetAttackTimer() {
@@ -82,6 +84,13 @@ public class EnemyBase : MonoBehaviour {
             isFlipped = true;
 
         }
+    }
+
+    public void FollowPlayer() {
+        // transform.position = Vector3.MoveTowards(transform.position, GameManager.Player.transform.position, speed * Time.deltaTime);
+        Vector2 target = new Vector2(GameManager.Player.transform.position.x, rb.position.y);
+        Vector2 newPos = Vector2.MoveTowards(rb.position, target, speed * Time.deltaTime);
+        rb.MovePosition(newPos);
     }
 
     // public void Die() {
