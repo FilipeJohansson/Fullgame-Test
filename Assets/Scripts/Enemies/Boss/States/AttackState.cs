@@ -6,6 +6,7 @@ public class AttackState : BossBaseState {
 
     public override void EnterState(BossStateManager boss, BossBase bossBase) {
         boss.animator.SetBool(animationName, true);
+        Attack(bossBase);
         boss.StartCoroutine(Walk(boss));
     }
 
@@ -35,5 +36,18 @@ public class AttackState : BossBaseState {
         //     if (bossBase.attackTimer <= 0)
         //         bossBase.canAttack = true;
         // }
+
+        // if (bossBase.attackDelayTimer <= 0) {
+
+
+        //     bossBase.ResetAttackDelay();
+        // }
+
+        // if (!bossBase.canAttack)
+        //     boss.SwitchState(boss.WalkState);
+    }
+
+    public void Attack(BossBase bossBase) {
+        
     }
 }
