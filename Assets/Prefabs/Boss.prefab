@@ -366,8 +366,8 @@ MonoBehaviour:
   attackRange: 1
   inAttackRange: 0
   bodyDamagePoint: {fileID: 6224887656642833726}
-  bodyDamageX: 1.03
-  bodyDamageY: 1.67
+  bodyDamageX: 0.46
+  bodyDamageY: 0.89
   whatIsPlayer:
     serializedVersion: 2
     m_Bits: 8
