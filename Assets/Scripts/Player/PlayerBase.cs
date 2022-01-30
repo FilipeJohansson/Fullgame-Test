@@ -225,10 +225,10 @@ public class PlayerBase : MonoBehaviour {
         yield return new WaitForSeconds(duration);
 
         rb.gravityScale = 3f;
-        yield return null;
-        
         isDashing = false;
         isUntargetable = false;
+
+        yield return null;
     }
 
     private void OnDrawGizmosSelected() {

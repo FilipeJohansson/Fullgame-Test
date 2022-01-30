@@ -16,8 +16,8 @@ public class DashAttack : MonoBehaviour, IAttack {
     private void OnTriggerEnter2D(Collider2D other) {
         if (other.tag == "PlayerDamage") {
             PlayerBase player = other.GetComponentInParent<PlayerBase>();
-            player.TakeDamage(attackDamage);
             player.Stun(1f);
+            player.TakeDamage(attackDamage);
         }
     }
 }
