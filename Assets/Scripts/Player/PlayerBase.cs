@@ -26,6 +26,8 @@ public class PlayerBase : MonoBehaviour {
 
     [SerializeField] public float horizontalMove;
 
+    [SerializeField] private SimpleFlash simpleFlash;
+
     public bool jump = false;
     public bool isInTheAir = false;
 
@@ -36,6 +38,8 @@ public class PlayerBase : MonoBehaviour {
 
         healthBar.SetMaxValue(maxHealth);
         staminaBar.SetMaxValue(maxStamina);
+
+        simpleFlash = gameObject.GetComponent<SimpleFlash>();
     }
 
     // Update is called once per frame
@@ -72,6 +76,9 @@ public class PlayerBase : MonoBehaviour {
     public void TakeDamage(int amount) {
         currentHealth -= amount;
         healthBar.SetValue(currentHealth);
+
+        simpleFlash.Flash();
+
         if (currentHealth <= 0)
             Die();
     }

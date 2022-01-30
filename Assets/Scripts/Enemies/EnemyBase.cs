@@ -19,6 +19,8 @@ public class EnemyBase : MonoBehaviour {
 
     bool isFlipped = false;
 
+    [SerializeField] private SimpleFlash spriteRendererFlash;
+
     public IAttack activeAttack;
     public List<IAttack> attacks;
 
@@ -31,6 +33,7 @@ public class EnemyBase : MonoBehaviour {
         ResetAttackTimer();
 
         gameManager = GameObject.FindGameObjectWithTag("GM").GetComponent<GameManager>();
+        spriteRendererFlash = gameObject.GetComponentInChildren<SimpleFlash>();
     }
 
     // Update is called once per frame
@@ -58,6 +61,9 @@ public class EnemyBase : MonoBehaviour {
 
     public void TakeDamage(float amount) {
         currentHealth -= (int)amount;
+
+        spriteRendererFlash.Flash();
+
         if (currentHealth <= 0)
             Die();
     }
