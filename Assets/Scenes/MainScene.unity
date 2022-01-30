@@ -563,7 +563,7 @@ MonoBehaviour:
   currentHealth: 0
   damage: 0
   isAttacking: 0
-  attackDamage: 3
+  attackDamage: 10
   m_AttackCheck: {fileID: 1406169477}
   k_AttackRadius: 0.5
   m_WhatIsEnemy:
@@ -1927,10 +1927,10 @@ RectTransform:
   m_Father: {fileID: 2063287682}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.22572759, y: 0.837}
-  m_AnchorMax: {x: 0.6552574, y: 1}
-  m_AnchoredPosition: {x: 40.5, y: -13.1}
-  m_SizeDelta: {x: -79.9798, y: -22.403107}
+  m_AnchorMin: {x: 0.25012892, y: 0.83445203}
+  m_AnchorMax: {x: 0.67700005, y: 1}
+  m_AnchoredPosition: {x: 41.315002, y: -9.702}
+  m_SizeDelta: {x: -79.9798, y: -25.403107}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1482067925
 MonoBehaviour:

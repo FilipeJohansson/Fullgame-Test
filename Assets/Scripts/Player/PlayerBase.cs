@@ -6,6 +6,7 @@ public class PlayerBase : MonoBehaviour {
     [SerializeField] public Rigidbody2D rb;
     public CharacterController2D controller;
     public Animator animator;
+    public HealthBar healthBar;
     [SerializeField] public int maxHealth;
     [SerializeField] public int currentHealth;
     [SerializeField] public float damage;
@@ -24,6 +25,8 @@ public class PlayerBase : MonoBehaviour {
     // Start is called before the first frame update
     void Start() {
         currentHealth = maxHealth;
+
+        healthBar.SetMaxHealth(maxHealth);
     }
 
     // Update is called once per frame
@@ -54,6 +57,7 @@ public class PlayerBase : MonoBehaviour {
 
     public void TakeDamage(int amount) {
         currentHealth -= amount;
+        healthBar.SetHealth(currentHealth);
         if (currentHealth <= 0)
             Die();
     }
