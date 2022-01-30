@@ -6,8 +6,8 @@ public class DashAttack : MonoBehaviour, IAttack {
     protected GameObject owner;
     public int attackDamage = 10;
 
-    public DashAttack(GameObject owner) {
-        owner = owner;
+    public DashAttack(GameObject _owner) {
+        owner = _owner;
     }
 
     public void Attack(MonoBehaviour mono) {
