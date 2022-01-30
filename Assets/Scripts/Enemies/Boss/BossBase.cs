@@ -19,6 +19,11 @@ public class BossBase : EnemyBase {
         healthBar.SetValue(currentHealth);
     }
 
+    public void DashAttack() {
+        float xForce = m_FacingRight ? -30 : 30;
+        rb.AddForce(new Vector2(xForce, -10), ForceMode2D.Impulse);
+    }
+
     public override void Die() {
         InstantiateHead();
         base.Die();

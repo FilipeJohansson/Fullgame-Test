@@ -51,11 +51,6 @@ public class EnemyBase : MonoBehaviour {
         attackTimer -= Time.deltaTime;
     }
 
-    public void Attack() {
-        // activeAttack = attacks[Random.Range(0, attacks.Count)];
-        // activeAttack.Attack(this);
-    }
-
     public void EndAttack() {
         isAttacking = false;
     }

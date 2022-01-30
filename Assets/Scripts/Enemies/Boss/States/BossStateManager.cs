@@ -7,6 +7,7 @@ public class BossStateManager : MonoBehaviour {
 
     public WalkState WalkState = new WalkState();
     public AttackState AttackState = new AttackState();
+    public DashState DashState = new DashState();
 
     public Animator animator;
     public BossBase bossBase;

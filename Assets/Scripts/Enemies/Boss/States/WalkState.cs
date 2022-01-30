@@ -19,6 +19,8 @@ public class WalkState : BossBaseState {
 
         if(enemyBase.canAttack && enemyBase.inAttackRange)
             boss.SwitchState(boss.AttackState);
+        if (enemyBase.canAttack && !enemyBase.inAttackRange)
+            boss.SwitchState(boss.DashState);
         else 
             enemyBase.DecreaseAttackTimer();
 

@@ -5,7 +5,8 @@ using UnityEngine;
 public class BossBehaviour : BossBase {
     void Awake() {
         attacks = new List<IAttack> {
-            new SimpleAttack(gameObject)
+            new SimpleAttack(gameObject),
+            new DashAttack(gameObject)
         };
     }
 }
