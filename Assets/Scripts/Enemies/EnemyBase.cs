@@ -17,7 +17,7 @@ public class EnemyBase : MonoBehaviour {
     [SerializeField] public Transform attackPoint;
     [SerializeField] public float attackRange = 1f;
 
-    bool isFlipped = false;
+    public bool m_FacingRight = true;
 
     [SerializeField] private SimpleFlash spriteRendererFlash;
 
@@ -38,8 +38,8 @@ public class EnemyBase : MonoBehaviour {
 
     // Update is called once per frame
     void FixedUpdate() {
-        LookAtPlayer();
-        FollowPlayer();
+
+        // FollowPlayer();
     }
 
     public void ResetAttackTimer() {
@@ -69,19 +69,19 @@ public class EnemyBase : MonoBehaviour {
     }
 
     public void LookAtPlayer() {
-        Vector3 flipped = transform.localScale;
-        flipped.z *= -1;
 
-        if (transform.position.x > GameManager.Player.transform.position.x && isFlipped) {
-            transform.localScale = flipped;
-            transform.Rotate(0, 180, 0);
-            isFlipped = false;
-        } else if (transform.position.x < GameManager.Player.transform.position.x && !isFlipped) {
-            transform.localScale = flipped;
-            transform.Rotate(0, 180, 0);
-            isFlipped = true;
+        if (transform.position.x > GameManager.Player.transform.position.x && !m_FacingRight)
+            Flip();
+        else if (transform.position.x < GameManager.Player.transform.position.x && m_FacingRight)
+            Flip();
+    }
 
-        }
+    private void Flip() {
+        m_FacingRight = !m_FacingRight;
+
+        Vector3 theScale = transform.localScale;
+        theScale.x *= -1;
+        transform.localScale = theScale;
     }
 
     public void FollowPlayer() {
@@ -91,7 +91,7 @@ public class EnemyBase : MonoBehaviour {
         rb.MovePosition(newPos);
     }
 
-    public void Die() {
+    public virtual void Die() {
         Destroy(gameObject);
     }
 }

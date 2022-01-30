@@ -13,8 +13,8 @@ public class WalkState : BossBaseState {
     }
 
     public override void UpdateState(BossStateManager boss, EnemyBase enemyBase) {
-        // bossBase.LookAtPlayer();
-        // boss.transform.position = Vector3.MoveTowards(boss.transform.position, bossBase.player.transform.position, bossBase.speed * Time.deltaTime);
+        enemyBase.LookAtPlayer();
+        enemyBase.FollowPlayer();
 
         if(enemyBase.canAttack)
             boss.SwitchState(boss.AttackState);
