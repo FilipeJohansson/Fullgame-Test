@@ -34,6 +34,15 @@ public class PlayerBase : MonoBehaviour {
     [SerializeField] public float untargetableCooldown = 0.5f;
     [SerializeField] public float untargetableTimer = 0;
 
+    [SerializeField] public float attackCooldown = 0.5f;
+    [SerializeField] public float attackTimer = 0;
+
+    [SerializeField] public float dashCooldown = 0.5f;
+    [SerializeField] public float dashTimer = 0;
+
+    [SerializeField] public float refreshStaminaCooldown = 2f;
+    [SerializeField] public float refreshStaminaTimer = 0;
+
     public bool jump = false;
     public bool isInTheAir = false;
     public bool isStuned = false;
@@ -44,6 +53,7 @@ public class PlayerBase : MonoBehaviour {
     void Start() {
         currentHealth = maxHealth;
         currentStamina = maxStamina;
+        refreshStaminaTimer = refreshStaminaCooldown;
 
         healthBar.SetMaxValue(maxHealth);
         staminaBar.SetMaxValue(maxStamina);
@@ -55,7 +65,8 @@ public class PlayerBase : MonoBehaviour {
     // Update is called once per frame
     void Update() {
         handleMovement();
-        handleAttack();
+        HandleAttack();
+        RrefreshStamina();
 
         if (isUntargetable && untargetableTimer > 0)
             untargetableTimer -= Time.deltaTime;
@@ -63,15 +74,41 @@ public class PlayerBase : MonoBehaviour {
             isUntargetable = false;
     }
 
-    private void handleAttack() {
+    void FixedUpdate() {
+        controller.Move(horizontalMove * Time.fixedDeltaTime, jump);
+        jump = false;
+
+        staminaBar.SetValue(currentStamina);
+    }
+
+    private void HandleAttack() {
         if (isStuned)
             return;
 
-        if (Input.GetButtonDown("Attack"))
+        if (attackTimer > 0)
+            attackTimer -= Time.deltaTime;
+
+        if (Input.GetButtonDown("Attack") && attackTimer <= 0) {
+            attackTimer = attackCooldown;
+
             if (isInTheAir)
                 isJumpAttacking = true;
             else
                 isAttacking = true;
+        }
+    }
+
+    private void RrefreshStamina() {
+        if (currentStamina == maxStamina)
+            return;
+            
+        if (refreshStaminaTimer > 0)
+            refreshStaminaTimer -= Time.deltaTime;
+
+        if (refreshStaminaTimer <= 0) {
+            currentStamina++;
+            refreshStaminaTimer = refreshStaminaCooldown;
+        }
     }
 
     // Private methods
@@ -79,8 +116,13 @@ public class PlayerBase : MonoBehaviour {
         if (isStuned)
             return;
 
-        if (Input.GetButtonDown("Dash")) {
+        if (dashTimer > 0)
+            dashTimer -= Time.deltaTime;
+
+        if (Input.GetButtonDown("Dash") && dashTimer <= 0) {
             if (currentStamina > 0) {
+                dashTimer = dashCooldown;
+
                 currentStamina--;
                 staminaBar.SetValue(currentStamina);
                 StartCoroutine(DashCoroutine(0.1f));
@@ -100,13 +142,6 @@ public class PlayerBase : MonoBehaviour {
         isInTheAir = false;
         isAttacking = false;
         isJumpAttacking = false;
-    }
-
-    void FixedUpdate() {
-        controller.Move(horizontalMove * Time.fixedDeltaTime, jump);
-        jump = false;
-
-        staminaBar.SetValue(currentStamina);
     }
 
     public void TakeDamage(int amount) {
