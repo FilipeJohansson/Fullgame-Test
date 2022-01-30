@@ -511,7 +511,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &581399126
 GameObject:
@@ -986,9 +986,21 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 9057112843211792643, guid: 847ff63ea084940f79c4daad69718086, type: 3}
+      propertyPath: m_Size.x
+      value: 4.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 9057112843211792643, guid: 847ff63ea084940f79c4daad69718086, type: 3}
+      propertyPath: m_Size.y
+      value: 0.625
+      objectReference: {fileID: 0}
+    - target: {fileID: 9057112843211792643, guid: 847ff63ea084940f79c4daad69718086, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9057112843211792889, guid: 847ff63ea084940f79c4daad69718086, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 9057112843211792889, guid: 847ff63ea084940f79c4daad69718086, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1044,15 +1056,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9057112843211792893, guid: 847ff63ea084940f79c4daad69718086, type: 3}
       propertyPath: speed
-      value: 0
+      value: 40
       objectReference: {fileID: 0}
+    - target: {fileID: 9057112843211792893, guid: 847ff63ea084940f79c4daad69718086, type: 3}
+      propertyPath: bossHead
+      value: 
+      objectReference: {fileID: 2327735154643751147, guid: 1c4b0d2189f043740be9d56f04099485, type: 3}
     - target: {fileID: 9057112843211792893, guid: 847ff63ea084940f79c4daad69718086, type: 3}
       propertyPath: healthBar
       value: 
       objectReference: {fileID: 1482067925}
     - target: {fileID: 9057112843211792893, guid: 847ff63ea084940f79c4daad69718086, type: 3}
       propertyPath: maxHealth
-      value: 500
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 9057112843211792893, guid: 847ff63ea084940f79c4daad69718086, type: 3}
       propertyPath: attackCooldown
@@ -5196,7 +5212,7 @@ Transform:
   - {fileID: 1090063979}
   - {fileID: 1620374216}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2052484610
 GameObject:
