@@ -147,7 +147,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 94793947}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.348, y: -0.266, z: 0}
+  m_LocalPosition: {x: 0.12, y: -0.46, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 697698020}
@@ -235,6 +235,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 9057112843211792888, guid: 847ff63ea084940f79c4daad69718086, type: 3}
+      propertyPath: m_Size.x
+      value: 1.5
+      objectReference: {fileID: 0}
     - target: {fileID: 9057112843211792889, guid: 847ff63ea084940f79c4daad69718086, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -297,7 +301,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9057112843211792893, guid: 847ff63ea084940f79c4daad69718086, type: 3}
       propertyPath: speed
-      value: 30
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 9057112843211792893, guid: 847ff63ea084940f79c4daad69718086, type: 3}
       propertyPath: healthBar
@@ -967,7 +971,7 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!114 &697698022
 MonoBehaviour:
@@ -1195,8 +1199,8 @@ MonoBehaviour:
   m_AttackCheck: {fileID: 1406169477}
   k_AttackRadius: 0.5
   m_JumpAttackCheck: {fileID: 94793948}
-  k_JumpAttackSizeX: 0.5
-  k_JumpAttackSizeY: 0.84
+  k_JumpAttackSizeX: 0.8
+  k_JumpAttackSizeY: 1
   m_WhatIsEnemy:
     serializedVersion: 2
     m_Bits: 128
@@ -1204,7 +1208,7 @@ MonoBehaviour:
   simpleFlash: {fileID: 697698023}
   spriteRenderer: {fileID: 0}
   stunObject: {fileID: 590492151}
-  untargetableCooldown: 0.5
+  untargetableCooldown: 1
   untargetableTimer: 0
   attackCooldown: 0.5
   attackTimer: 0
