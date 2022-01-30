@@ -101,6 +101,9 @@ public class PlayerBase : MonoBehaviour {
     }
 
     public void TakeDamage(int amount) {
+        if (isDashing)
+            return;
+            
         currentHealth -= amount;
         healthBar.SetValue(currentHealth);
 
@@ -111,6 +114,9 @@ public class PlayerBase : MonoBehaviour {
     }
 
     public void Stun(float duration) {
+        if (isDashing)
+            return;
+
         horizontalMove = 0;
         isStuned = true;
         stunObject.SetActive(true);
