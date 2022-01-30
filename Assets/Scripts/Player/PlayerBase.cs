@@ -29,9 +29,11 @@ public class PlayerBase : MonoBehaviour {
     [SerializeField] private SimpleFlash simpleFlash;
 
     [SerializeField] private SpriteRenderer spriteRenderer;
+    [SerializeField] public GameObject stunObject;
 
     public bool jump = false;
     public bool isInTheAir = false;
+    public bool isStuned = false;
 
     // Start is called before the first frame update
     void Start() {
@@ -47,14 +49,13 @@ public class PlayerBase : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-        horizontalMove = Input.GetAxisRaw("Horizontal") * controller.runSpeed;
+        handleMovement();
+        handleAttack();
+    }
 
-        // animator.SetFloat("Speed", Mathf.Abs(horizontalMove));
-
-        if (Input.GetButtonDown("Jump")) {
-            jump = true;
-            isInTheAir = true;
-        }
+    private void handleAttack() {
+        if (isStuned)
+            return;
 
         if (Input.GetButtonDown("Attack"))
             if (isInTheAir)
@@ -63,6 +64,20 @@ public class PlayerBase : MonoBehaviour {
                 isAttacking = true;
     }
 
+    // Private methods
+    private void handleMovement() {
+        if (isStuned)
+            return;
+
+        horizontalMove = Input.GetAxisRaw("Horizontal") * controller.runSpeed;
+
+        if (Input.GetButtonDown("Jump")) {
+            jump = true;
+            isInTheAir = true;
+        }
+    }
+
+    // Public methods
     public void onLanding() {
         isInTheAir = false;
         isAttacking = false;
@@ -84,6 +99,13 @@ public class PlayerBase : MonoBehaviour {
 
         if (currentHealth <= 0)
             Die();
+    }
+
+    public void Stun(float duration) {
+        horizontalMove = 0;
+        isStuned = true;
+        stunObject.SetActive(true);
+        StartCoroutine(StunCoroutine(duration));
     }
 
     public void Attack() {
@@ -108,14 +130,13 @@ public class PlayerBase : MonoBehaviour {
     }
 
     public void Die() {
-        Debug.Log("Player died");
         StartCoroutine(DeathAnimation(100));
     }
 
     IEnumerator DeathAnimation(float duration) {
         Color deathColor = spriteRenderer.color;
         deathColor.a = 0;
-        // deathColor.a = 0;
+
         for (float t = 0f; t < duration; t += Time.deltaTime) {
             float normalizedTime = t / duration;
             //right here, you can now use normalizedTime as the third parameter in any Lerp from start to end
@@ -123,6 +144,13 @@ public class PlayerBase : MonoBehaviour {
             yield return null;
         }
         spriteRenderer.color = deathColor; //without this, the value will end at something like 0.9992367
+    }
+
+    IEnumerator StunCoroutine(float duration) {
+        yield return new WaitForSeconds(duration);
+        isStuned = false;
+        stunObject.SetActive(false);
+        yield return null;
     }
 
     private void OnDrawGizmosSelected() {

@@ -3,14 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class DashAttack : MonoBehaviour, IAttack {
-
-    GameObject owner;
+    protected GameObject owner;
+    public int attackDamage = 10;
 
     public DashAttack(GameObject owner) {
         owner = owner;
     }
 
     public void Attack(MonoBehaviour mono) {
-        owner.GetComponent<BossBase>().rb.AddForce(new Vector2(20, 0), ForceMode2D.Impulse);
+    }
+
+    private void OnTriggerEnter2D(Collider2D other) {
+        if (other.tag == "PlayerDamage") {
+            PlayerBase player = other.GetComponentInParent<PlayerBase>();
+            player.TakeDamage(attackDamage);
+            player.Stun(1f);
+        }
     }
 }
