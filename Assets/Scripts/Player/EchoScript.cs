@@ -15,6 +15,7 @@ public class EchoScript : MonoBehaviour {
 
         if (timeBtwSpawns <= 0) {
             GameObject instance = Instantiate(echo, transform.position, Quaternion.identity);
+            instance.transform.localScale = player.transform.localScale;
             Destroy(instance, 1f);
             timeBtwSpawns = startTimeBtwSpawns;
         } else
