@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SimpleAttack : MonoBehaviour, IAttack  {
-
+public class SimpleAttack : MonoBehaviour, IAttack {
     protected GameObject owner;
+    public int attackDamage = 10;
 
     public SimpleAttack(GameObject _owner) {
         owner = _owner;
@@ -14,8 +14,8 @@ public class SimpleAttack : MonoBehaviour, IAttack  {
     }
 
     private void OnTriggerEnter2D(Collider2D other) {
-        if (other.tag == "Player") {
-            // Debug.Log("Hit");
+        if (other.tag == "PlayerDamage") {
+            other.GetComponentInParent<PlayerBase>().TakeDamage(attackDamage);
         }
     }
 

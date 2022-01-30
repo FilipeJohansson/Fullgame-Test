@@ -12,8 +12,6 @@ public class EnemyBase : MonoBehaviour {
     [SerializeField] public float speed;
     [SerializeField] public float attackCooldown = 3f;
     [SerializeField] public float attackTimer;
-    [SerializeField] public float attackDelay = 3f;
-    [SerializeField] public float attackDelayTimer;
     [SerializeField] public bool canAttack = false;
     [SerializeField] public bool isAttacking = false;
     [SerializeField] public Transform attackPoint;
@@ -30,8 +28,7 @@ public class EnemyBase : MonoBehaviour {
     // Start is called before the first frame update
     public virtual void Start() {
         currentHealth = maxHealth;
-        attackTimer = attackCooldown;
-        attackDelayTimer = attackDelay;
+        ResetAttackTimer();
 
         gameManager = GameObject.FindGameObjectWithTag("GM").GetComponent<GameManager>();
     }
@@ -50,17 +47,13 @@ public class EnemyBase : MonoBehaviour {
         attackTimer -= Time.deltaTime;
     }
 
-    public void ResetAttackDelay() {
-        attackDelayTimer = attackDelay;
-    }
-
-    public void DecreaseAttackDelay() {
-        attackTimer -= Time.deltaTime;
-    }
-
     public void Attack() {
-        activeAttack = attacks[Random.Range(0, attacks.Count)];
-        activeAttack.Attack(this);
+        // activeAttack = attacks[Random.Range(0, attacks.Count)];
+        // activeAttack.Attack(this);
+    }
+
+    public void EndAttack() {
+        isAttacking = false;
     }
 
     public void TakeDamage(float amount) {

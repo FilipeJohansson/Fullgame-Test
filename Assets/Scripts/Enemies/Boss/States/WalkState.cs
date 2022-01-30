@@ -4,24 +4,15 @@ using UnityEngine;
 public class WalkState : BossBaseState {
     [SerializeField] string animationName = "walking";
 
-    public override void EnterState(BossStateManager boss, BossBase bossBase) {
+    public override void EnterState(BossStateManager boss, EnemyBase enemyBase) {
         boss.animator.SetBool(animationName, true);
-        boss.StartCoroutine(Attack(boss));
     }
 
-    public override void ExitState(BossStateManager boss, BossBase bossBase) {
+    public override void ExitState(BossStateManager boss, EnemyBase enemyBase) {
         boss.animator.SetBool(animationName, false);
     }
 
-    IEnumerator Attack(BossStateManager boss) {
-        yield return new WaitForSeconds(2f);
-
-        boss.SwitchState(boss.AttackState);
-
-        yield return null;
-    }
-
-    public override void UpdateState(BossStateManager boss, BossBase bossBase) {
+    public override void UpdateState(BossStateManager boss, EnemyBase enemyBase) {
         // bossBase.LookAtPlayer();
         // boss.transform.position = Vector3.MoveTowards(boss.transform.position, bossBase.player.transform.position, bossBase.speed * Time.deltaTime);
 
@@ -35,5 +26,13 @@ public class WalkState : BossBaseState {
         //     if (bossBase.attackTimer <= 0)
         //         bossBase.canAttack = true;
         // }
+
+        if(enemyBase.canAttack)
+            boss.SwitchState(boss.AttackState);
+        else 
+            enemyBase.DecreaseAttackTimer();
+
+        if (enemyBase.attackTimer <= 0)
+            enemyBase.canAttack = true;
     }
 }
