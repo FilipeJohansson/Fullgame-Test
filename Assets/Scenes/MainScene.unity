@@ -1083,6 +1083,10 @@ PrefabInstance:
       propertyPath: spriteRendererFlash
       value: 
       objectReference: {fileID: 217611768}
+    - target: {fileID: 9057112843211792893, guid: 847ff63ea084940f79c4daad69718086, type: 3}
+      propertyPath: whatIsPlayer.m_Bits
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1559786325065313885, guid: 847ff63ea084940f79c4daad69718086, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 847ff63ea084940f79c4daad69718086, type: 3}

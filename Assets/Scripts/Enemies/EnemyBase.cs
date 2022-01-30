@@ -16,6 +16,8 @@ public class EnemyBase : MonoBehaviour {
     [SerializeField] public bool isAttacking = false;
     [SerializeField] public Transform attackPoint;
     [SerializeField] public float attackRange = 1f;
+    [SerializeField] public bool inAttackRange = false;
+    [SerializeField] public LayerMask whatIsPlayer;
 
     public bool m_FacingRight = true;
 
@@ -37,9 +39,8 @@ public class EnemyBase : MonoBehaviour {
     }
 
     // Update is called once per frame
-    void FixedUpdate() {
-
-        // FollowPlayer();
+    void Update() {
+        VerifyRangeAttack();
     }
 
     public void ResetAttackTimer() {
@@ -85,13 +86,25 @@ public class EnemyBase : MonoBehaviour {
     }
 
     public void FollowPlayer() {
-        // transform.position = Vector3.MoveTowards(transform.position, GameManager.Player.transform.position, speed * Time.deltaTime);
         Vector2 target = new Vector2(GameManager.Player.transform.position.x, rb.position.y);
         Vector2 newPos = Vector2.MoveTowards(rb.position, target, speed * Time.deltaTime);
         rb.MovePosition(newPos);
     }
 
+    public void VerifyRangeAttack() {
+        Collider2D[] player = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, whatIsPlayer);
+        if (player.Length > 0)
+            inAttackRange = true;
+        else
+            inAttackRange = false;
+    }
+
     public virtual void Die() {
         Destroy(gameObject);
+    }
+
+    private void OnDrawGizmosSelected() {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(attackPoint.position, attackRange);
     }
 }

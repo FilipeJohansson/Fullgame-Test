@@ -14,9 +14,10 @@ public class WalkState : BossBaseState {
 
     public override void UpdateState(BossStateManager boss, EnemyBase enemyBase) {
         enemyBase.LookAtPlayer();
-        enemyBase.FollowPlayer();
+        if (!enemyBase.inAttackRange)
+            enemyBase.FollowPlayer();
 
-        if(enemyBase.canAttack)
+        if(enemyBase.canAttack && enemyBase.inAttackRange)
             boss.SwitchState(boss.AttackState);
         else 
             enemyBase.DecreaseAttackTimer();

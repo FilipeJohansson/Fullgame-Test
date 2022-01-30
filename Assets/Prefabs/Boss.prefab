@@ -1,5 +1,35 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4935020225849659621
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3654844231113387727}
+  m_Layer: 6
+  m_Name: AttackPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3654844231113387727
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4935020225849659621}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.33, y: 0.66, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 9057112843211792889}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &9057112841492341833
 GameObject:
   m_ObjectHideFlags: 0
@@ -188,6 +218,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: -1}
   m_Children:
   - {fileID: 9057112842258125997}
+  - {fileID: 3654844231113387727}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: -180, z: 0}
@@ -212,11 +243,13 @@ MonoBehaviour:
   attackTimer: 0
   canAttack: 0
   isAttacking: 0
-  attackPoint: {fileID: 0}
-  attackRange: 1
-  simpleFlash: {fileID: 0}
+  attackPoint: {fileID: 3654844231113387727}
+  attackRange: 0.5
+  m_FacingRight: 1
+  spriteRendererFlash: {fileID: 0}
   gameManager: {fileID: 0}
   healthBar: {fileID: 0}
+  bossHead: {fileID: 0}
 --- !u!114 &9057112843211792892
 MonoBehaviour:
   m_ObjectHideFlags: 0
