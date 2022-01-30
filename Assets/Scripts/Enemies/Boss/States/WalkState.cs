@@ -16,17 +16,6 @@ public class WalkState : BossBaseState {
         // bossBase.LookAtPlayer();
         // boss.transform.position = Vector3.MoveTowards(boss.transform.position, bossBase.player.transform.position, bossBase.speed * Time.deltaTime);
 
-        // // Verify if can attack
-        // if (bossBase.canAttack) {
-        //     bossBase.ResetAttackTimer();
-        //     boss.SwitchState(boss.AttackState);
-        // } else {
-        //     bossBase.DecreaseAttackTimer();
-
-        //     if (bossBase.attackTimer <= 0)
-        //         bossBase.canAttack = true;
-        // }
-
         if(enemyBase.canAttack)
             boss.SwitchState(boss.AttackState);
         else 

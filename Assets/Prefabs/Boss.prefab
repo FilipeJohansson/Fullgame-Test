@@ -70,6 +70,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5e22e966b626ca4fa642a1c66cb89e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attackDamage: 0
 --- !u!1 &9057112842258125998
 GameObject:
   m_ObjectHideFlags: 0
@@ -209,13 +210,13 @@ MonoBehaviour:
   speed: 2.5
   attackCooldown: 3
   attackTimer: 0
-  attackDelay: 3
-  attackDelayTimer: 0
   canAttack: 0
   isAttacking: 0
   attackPoint: {fileID: 0}
   attackRange: 1
+  simpleFlash: {fileID: 0}
   gameManager: {fileID: 0}
+  healthBar: {fileID: 0}
 --- !u!114 &9057112843211792892
 MonoBehaviour:
   m_ObjectHideFlags: 0
