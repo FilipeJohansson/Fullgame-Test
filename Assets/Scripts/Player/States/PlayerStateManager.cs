@@ -13,6 +13,11 @@ public class PlayerStateManager : MonoBehaviour {
 
     public Animator animator;
     public PlayerBase playerBase;
+
+    void Awake() {
+        animator = gameObject.GetComponent<Animator>();
+        playerBase = gameObject.GetComponent<PlayerBase>();
+    }
     
     // Start is called before the first frame update
     void Start() {

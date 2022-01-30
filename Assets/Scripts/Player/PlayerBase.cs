@@ -4,10 +4,16 @@ using UnityEngine;
 
 public class PlayerBase : MonoBehaviour {
     [SerializeField] public Rigidbody2D rb;
+    public CharacterController2D controller;
+    public Animator animator;
     [SerializeField] public int maxHealth;
     [SerializeField] public int currentHealth;
     [SerializeField] public float damage;
     [SerializeField] public bool isAttacking = false;
+    
+    [SerializeField] public float horizontalMove;
+
+    public bool jump = false;
 
     // Start is called before the first frame update
     void Start() {
