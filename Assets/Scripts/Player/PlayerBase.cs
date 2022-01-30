@@ -31,10 +31,14 @@ public class PlayerBase : MonoBehaviour {
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] public GameObject stunObject;
 
+    [SerializeField] public float untargetableCooldown = 0.5f;
+    [SerializeField] public float untargetableTimer = 0;
+
     public bool jump = false;
     public bool isInTheAir = false;
     public bool isStuned = false;
     public bool isDashing = false;
+    public bool isUntargetable = false;
 
     // Start is called before the first frame update
     void Start() {
@@ -52,6 +56,11 @@ public class PlayerBase : MonoBehaviour {
     void Update() {
         handleMovement();
         handleAttack();
+
+        if (isUntargetable && untargetableTimer > 0)
+            untargetableTimer -= Time.deltaTime;
+        else if (isUntargetable && untargetableTimer <= 0)
+            isUntargetable = false;
     }
 
     private void handleAttack() {
@@ -101,9 +110,12 @@ public class PlayerBase : MonoBehaviour {
     }
 
     public void TakeDamage(int amount) {
-        if (isDashing)
+        if (isUntargetable)
             return;
-            
+
+        isUntargetable = true;
+        untargetableTimer = untargetableCooldown;
+
         currentHealth -= amount;
         healthBar.SetValue(currentHealth);
 
@@ -114,7 +126,7 @@ public class PlayerBase : MonoBehaviour {
     }
 
     public void Stun(float duration) {
-        if (isDashing)
+        if (isUntargetable)
             return;
 
         horizontalMove = 0;
@@ -170,6 +182,7 @@ public class PlayerBase : MonoBehaviour {
 
     IEnumerator DashCoroutine(float duration) {
         isDashing = true;
+        isUntargetable = true;
         float oldGravity = rb.gravityScale;
         rb.gravityScale = 0;
         rb.AddForce(new Vector2(2 * horizontalMove, 0), ForceMode2D.Impulse);
@@ -180,6 +193,7 @@ public class PlayerBase : MonoBehaviour {
         yield return null;
         
         isDashing = false;
+        isUntargetable = false;
     }
 
     private void OnDrawGizmosSelected() {

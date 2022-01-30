@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4935020225849659621}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.33, y: 0.66, z: 0}
+  m_LocalPosition: {x: 1.33, y: 0.893, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 9057112843211792889}
@@ -101,6 +101,36 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackDamage: 30
+--- !u!1 &7198607892571313709
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6224887656642833726}
+  m_Layer: 6
+  m_Name: BodyDamagePoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6224887656642833726
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7198607892571313709}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.91, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 9057112843211792889}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &9057112841492341833
 GameObject:
   m_ObjectHideFlags: 0
@@ -171,7 +201,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5e22e966b626ca4fa642a1c66cb89e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackDamage: 0
+  attackDamage: 10
 --- !u!1 &9057112842258125998
 GameObject:
   m_ObjectHideFlags: 0
@@ -182,6 +212,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9057112842258125997}
   - component: {fileID: 9057112842258125996}
+  - component: {fileID: 4392837479115031586}
   m_Layer: 6
   m_Name: sprite
   m_TagString: Untagged
@@ -256,6 +287,20 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &4392837479115031586
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9057112842258125998}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc30f797347dbe947ba8928bc7759a84, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flashMaterial: {fileID: 2100000, guid: 063c9639be432e14e910a60a4400866f, type: 2}
+  duration: 0.125
 --- !u!1 &9057112843211792890
 GameObject:
   m_ObjectHideFlags: 0
@@ -271,7 +316,7 @@ GameObject:
   - component: {fileID: 9057112843211792888}
   - component: {fileID: 9057112843211792894}
   - component: {fileID: 9057112843211792643}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Boss
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -291,6 +336,7 @@ Transform:
   m_Children:
   - {fileID: 9057112842258125997}
   - {fileID: 3654844231113387727}
+  - {fileID: 6224887656642833726}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: -180, z: 0}
@@ -307,25 +353,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 9057112843211792895}
-  maxHealth: 0
+  maxHealth: 500
   currentHealth: 0
   damage: 0
-  speed: 2.5
-  attackCooldown: 3
+  collisionDamage: 5
+  speed: 40
+  attackCooldown: 1
   attackTimer: 0
   canAttack: 0
   isAttacking: 0
   attackPoint: {fileID: 3654844231113387727}
-  attackRange: 0.5
+  attackRange: 1
   inAttackRange: 0
+  bodyDamagePoint: {fileID: 6224887656642833726}
+  bodyDamageX: 1.03
+  bodyDamageY: 1.67
   whatIsPlayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8
   m_FacingRight: 1
-  spriteRendererFlash: {fileID: 0}
+  spriteRendererFlash: {fileID: 4392837479115031586}
   gameManager: {fileID: 0}
   healthBar: {fileID: 0}
-  bossHead: {fileID: 0}
+  bossHead: {fileID: 2327735154643751147, guid: 1c4b0d2189f043740be9d56f04099485, type: 3}
 --- !u!114 &9057112843211792892
 MonoBehaviour:
   m_ObjectHideFlags: 0

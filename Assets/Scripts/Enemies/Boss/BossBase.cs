@@ -36,4 +36,9 @@ public class BossBase : EnemyBase {
 
         headRb.AddForce(new Vector2(.02f, 3), ForceMode2D.Impulse);
     }
+
+    private void OnCollisionEnter2D(Collision2D other) {
+        if (other.gameObject.tag == "PlayerDamage")
+            other.gameObject.GetComponentInParent<PlayerBase>().TakeDamage(collisionDamage);
+    }
 }

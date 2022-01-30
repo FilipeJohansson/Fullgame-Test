@@ -9,6 +9,7 @@ public class EnemyBase : MonoBehaviour {
     [SerializeField] public int maxHealth;
     [SerializeField] public int currentHealth;
     [SerializeField] public float damage;
+    [SerializeField] public int collisionDamage;
     [SerializeField] public float speed;
     [SerializeField] public float attackCooldown = 3f;
     [SerializeField] public float attackTimer;
@@ -17,6 +18,9 @@ public class EnemyBase : MonoBehaviour {
     [SerializeField] public Transform attackPoint;
     [SerializeField] public float attackRange = 1f;
     [SerializeField] public bool inAttackRange = false;
+    [SerializeField] public Transform bodyDamagePoint;
+    [SerializeField] public float bodyDamageX = 1f;
+    [SerializeField] public float bodyDamageY = 1f;
     [SerializeField] public LayerMask whatIsPlayer;
 
     public bool m_FacingRight = true;
@@ -41,6 +45,10 @@ public class EnemyBase : MonoBehaviour {
     // Update is called once per frame
     void Update() {
         VerifyRangeAttack();
+
+        Collider2D[] player = Physics2D.OverlapBoxAll(bodyDamagePoint.position, new Vector2(bodyDamageX, bodyDamageY), 0, whatIsPlayer);
+        if (player.Length > 0)
+            GameManager.Player.gameObject.GetComponent<PlayerBase>().TakeDamage(collisionDamage);
     }
 
     public void ResetAttackTimer() {
@@ -101,5 +109,6 @@ public class EnemyBase : MonoBehaviour {
     private void OnDrawGizmosSelected() {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(attackPoint.position, attackRange);
+        Gizmos.DrawWireCube(bodyDamagePoint.position, new Vector3(bodyDamageX, bodyDamageY, 0));
     }
 }
