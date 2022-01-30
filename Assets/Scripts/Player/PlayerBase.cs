@@ -28,6 +28,8 @@ public class PlayerBase : MonoBehaviour {
 
     [SerializeField] private SimpleFlash simpleFlash;
 
+    [SerializeField] private SpriteRenderer spriteRenderer;
+
     public bool jump = false;
     public bool isInTheAir = false;
 
@@ -40,6 +42,7 @@ public class PlayerBase : MonoBehaviour {
         staminaBar.SetMaxValue(maxStamina);
 
         simpleFlash = gameObject.GetComponent<SimpleFlash>();
+        spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
@@ -85,14 +88,14 @@ public class PlayerBase : MonoBehaviour {
 
     public void Attack() {
         Collider2D[] enemies = Physics2D.OverlapCircleAll(m_AttackCheck.position, k_AttackRadius, m_WhatIsEnemy);
-        
+
         foreach (Collider2D enemy in enemies)
             enemy.GetComponent<EnemyBase>().TakeDamage(attackDamage);
     }
 
     public void JumpAttack() {
         Collider2D[] enemies = Physics2D.OverlapBoxAll(m_JumpAttackCheck.position, new Vector2(k_JumpAttackSizeX, k_JumpAttackSizeY), 0, m_WhatIsEnemy);
-        
+
         foreach (Collider2D enemy in enemies)
             enemy.GetComponent<EnemyBase>().TakeDamage(attackDamage);
 
@@ -105,8 +108,21 @@ public class PlayerBase : MonoBehaviour {
     }
 
     public void Die() {
-        // Destroy(gameObject);
         Debug.Log("Player died");
+        StartCoroutine(DeathAnimation(100));
+    }
+
+    IEnumerator DeathAnimation(float duration) {
+        Color deathColor = spriteRenderer.color;
+        deathColor.a = 0;
+        // deathColor.a = 0;
+        for (float t = 0f; t < duration; t += Time.deltaTime) {
+            float normalizedTime = t / duration;
+            //right here, you can now use normalizedTime as the third parameter in any Lerp from start to end
+            spriteRenderer.color = Color.Lerp(spriteRenderer.color, deathColor, normalizedTime);
+            yield return null;
+        }
+        spriteRenderer.color = deathColor; //without this, the value will end at something like 0.9992367
     }
 
     private void OnDrawGizmosSelected() {

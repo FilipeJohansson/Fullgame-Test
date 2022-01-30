@@ -923,7 +923,7 @@ MonoBehaviour:
   animator: {fileID: 697698027}
   healthBar: {fileID: 2052484612}
   staminaBar: {fileID: 424972462}
-  maxHealth: 50
+  maxHealth: 1
   currentHealth: 0
   maxStamina: 10
   currentStamina: 0
@@ -941,6 +941,7 @@ MonoBehaviour:
     m_Bits: 128
   horizontalMove: 0
   simpleFlash: {fileID: 697698023}
+  spriteRenderer: {fileID: 0}
   jump: 0
   isInTheAir: 0
 --- !u!1001 &856618347
