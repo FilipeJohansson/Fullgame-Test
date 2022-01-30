@@ -14,7 +14,7 @@ public class PlayerIdleState : PlayerState {
     }
 
     public override void UpdateState(PlayerStateManager stateManager, PlayerBase player) {
-        if (player.horizontalMove != 0)
+        if (player.horizontalMove != 0 && !player.isInTheAir)
             stateManager.SwitchState(stateManager.RunningState);
 
         if (player.jump)

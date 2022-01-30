@@ -14,11 +14,11 @@ public class PlayerRunningState : PlayerState {
     }
 
     public override void UpdateState(PlayerStateManager stateManager, PlayerBase player) {
-        if (player.horizontalMove == 0)
-            stateManager.SwitchState(stateManager.PlayerIdleState);
-        
         if (player.jump)
             stateManager.SwitchState(stateManager.PlayerJumpState);
+
+        if (player.horizontalMove == 0 && !player.isInTheAir)
+            stateManager.SwitchState(stateManager.PlayerIdleState);
 
         if (player.isAttacking)
             stateManager.SwitchState(stateManager.PlayerAttackState);

@@ -14,10 +14,10 @@ public class PlayerJumpState : PlayerState {
     }
 
     public override void UpdateState(PlayerStateManager stateManager, PlayerBase player) {
-        if (player.isAttacking)
-            stateManager.SwitchState(stateManager.PlayerAttackState);
+        if (player.isJumpAttacking)
+            stateManager.SwitchState(stateManager.PlayerJumpAttackState);
 
-        if (player.landed) {
+        if (!player.isInTheAir) {
             if (player.horizontalMove != 0)
                 stateManager.SwitchState(stateManager.RunningState);
             else

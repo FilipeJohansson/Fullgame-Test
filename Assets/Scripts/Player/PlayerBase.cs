@@ -14,16 +14,20 @@ public class PlayerBase : MonoBehaviour {
     [SerializeField] public int currentStamina;
     [SerializeField] public float damage;
     [SerializeField] public bool isAttacking = false;
+    [SerializeField] public bool isJumpAttacking = false;
 
     [SerializeField] public int attackDamage = 3;
     [SerializeField] private Transform m_AttackCheck;
     [SerializeField] private float k_AttackRadius;
+    [SerializeField] private Transform m_JumpAttackCheck;
+    [SerializeField] private float k_JumpAttackSizeX;
+    [SerializeField] private float k_JumpAttackSizeY;
     [SerializeField] private LayerMask m_WhatIsEnemy;
 
     [SerializeField] public float horizontalMove;
 
     public bool jump = false;
-    public bool landed = true;
+    public bool isInTheAir = false;
 
     // Start is called before the first frame update
     void Start() {
@@ -42,17 +46,20 @@ public class PlayerBase : MonoBehaviour {
 
         if (Input.GetButtonDown("Jump")) {
             jump = true;
-            landed = false;
+            isInTheAir = true;
         }
 
         if (Input.GetButtonDown("Attack"))
-            isAttacking = true;
-            // animator.SetTrigger("IsAttacking");
+            if (isInTheAir)
+                isJumpAttacking = true;
+            else
+                isAttacking = true;
     }
 
     public void onLanding() {
-        // animator.SetBool("IsJumping", false);
-        landed = true;
+        isInTheAir = false;
+        isAttacking = false;
+        isJumpAttacking = false;
     }
 
     void FixedUpdate() {
@@ -74,8 +81,20 @@ public class PlayerBase : MonoBehaviour {
         
         foreach (Collider2D enemy in enemies)
             enemy.GetComponent<EnemyBase>().TakeDamage(attackDamage);
+    }
 
+    public void JumpAttack() {
+        Collider2D[] enemies = Physics2D.OverlapBoxAll(m_JumpAttackCheck.position, new Vector2(k_JumpAttackSizeX, k_JumpAttackSizeY), 0, m_WhatIsEnemy);
+        
+        foreach (Collider2D enemy in enemies)
+            enemy.GetComponent<EnemyBase>().TakeDamage(attackDamage);
+
+        controller.ApplyNegativeForce();
+    }
+
+    public void ResetAttack() {
         isAttacking = false;
+        isJumpAttacking = false;
     }
 
     public void Die() {
@@ -86,5 +105,7 @@ public class PlayerBase : MonoBehaviour {
     private void OnDrawGizmosSelected() {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(m_AttackCheck.position, k_AttackRadius);
+
+        Gizmos.DrawWireCube(m_JumpAttackCheck.position, new Vector3(k_JumpAttackSizeX, k_JumpAttackSizeY, 0));
     }
 }
