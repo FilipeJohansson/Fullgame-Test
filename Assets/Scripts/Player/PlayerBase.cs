@@ -34,6 +34,7 @@ public class PlayerBase : MonoBehaviour {
     public bool jump = false;
     public bool isInTheAir = false;
     public bool isStuned = false;
+    public bool isDashing = false;
 
     // Start is called before the first frame update
     void Start() {
@@ -68,6 +69,14 @@ public class PlayerBase : MonoBehaviour {
     private void handleMovement() {
         if (isStuned)
             return;
+
+        if (Input.GetButtonDown("Dash")) {
+            if (currentStamina > 0) {
+                currentStamina--;
+                staminaBar.SetValue(currentStamina);
+                StartCoroutine(DashCoroutine(0.1f));
+            }
+        }
 
         horizontalMove = Input.GetAxisRaw("Horizontal") * controller.runSpeed;
 
@@ -151,6 +160,20 @@ public class PlayerBase : MonoBehaviour {
         isStuned = false;
         stunObject.SetActive(false);
         yield return null;
+    }
+
+    IEnumerator DashCoroutine(float duration) {
+        isDashing = true;
+        float oldGravity = rb.gravityScale;
+        rb.gravityScale = 0;
+        rb.AddForce(new Vector2(2 * horizontalMove, 0), ForceMode2D.Impulse);
+
+        yield return new WaitForSeconds(duration);
+
+        rb.gravityScale = 3f;
+        yield return null;
+        
+        isDashing = false;
     }
 
     private void OnDrawGizmosSelected() {
