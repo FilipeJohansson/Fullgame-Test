@@ -15,7 +15,7 @@ public class SimpleAttack : MonoBehaviour, IAttack  {
 
     private void OnTriggerEnter2D(Collider2D other) {
         if (other.tag == "Player") {
-            Debug.Log("Hit");
+            // Debug.Log("Hit");
         }
     }
 

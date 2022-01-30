@@ -24,7 +24,6 @@ public class PlayerMovement : MonoBehaviour {
 
     public void onLanding() {
         animator.SetBool("IsJumping", false);
-        Debug.Log("landed");
     }
 
     void FixedUpdate() {

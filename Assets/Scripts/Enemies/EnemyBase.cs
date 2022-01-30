@@ -28,7 +28,7 @@ public class EnemyBase : MonoBehaviour {
     [SerializeField] protected GameManager gameManager;
 
     // Start is called before the first frame update
-    void Start() {
+    public virtual void Start() {
         currentHealth = maxHealth;
         attackTimer = attackCooldown;
         attackDelayTimer = attackDelay;
@@ -65,9 +65,8 @@ public class EnemyBase : MonoBehaviour {
 
     public void TakeDamage(float amount) {
         currentHealth -= (int)amount;
-        if (currentHealth <= 0) {
-            // Die();
-        }
+        if (currentHealth <= 0)
+            Die();
     }
 
     public void LookAtPlayer() {
@@ -93,13 +92,7 @@ public class EnemyBase : MonoBehaviour {
         rb.MovePosition(newPos);
     }
 
-    // public void Die() {
-    //     gameManager.EnemyDied(this);
-    //     Destroy(gameObject);
-    // }
-
-    // void OnDrawGizmosSelected() {
-    //     Gizmos.color = Color.red;
-    //     Gizmos.DrawWireSphere(attackPoint.position, attackRange);
-    // }
+    public void Die() {
+        Destroy(gameObject);
+    }
 }
