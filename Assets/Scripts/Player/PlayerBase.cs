@@ -6,9 +6,12 @@ public class PlayerBase : MonoBehaviour {
     [SerializeField] public Rigidbody2D rb;
     public CharacterController2D controller;
     public Animator animator;
-    public HealthBar healthBar;
+    public SlideBar healthBar;
+    public SlideBar staminaBar;
     [SerializeField] public int maxHealth;
     [SerializeField] public int currentHealth;
+    [SerializeField] public int maxStamina;
+    [SerializeField] public int currentStamina;
     [SerializeField] public float damage;
     [SerializeField] public bool isAttacking = false;
 
@@ -25,8 +28,10 @@ public class PlayerBase : MonoBehaviour {
     // Start is called before the first frame update
     void Start() {
         currentHealth = maxHealth;
+        currentStamina = maxStamina;
 
-        healthBar.SetMaxHealth(maxHealth);
+        healthBar.SetMaxValue(maxHealth);
+        staminaBar.SetMaxValue(maxStamina);
     }
 
     // Update is called once per frame
@@ -53,11 +58,13 @@ public class PlayerBase : MonoBehaviour {
     void FixedUpdate() {
         controller.Move(horizontalMove * Time.fixedDeltaTime, jump);
         jump = false;
+
+        staminaBar.SetValue(currentStamina);
     }
 
     public void TakeDamage(int amount) {
         currentHealth -= amount;
-        healthBar.SetHealth(currentHealth);
+        healthBar.SetValue(currentHealth);
         if (currentHealth <= 0)
             Die();
     }

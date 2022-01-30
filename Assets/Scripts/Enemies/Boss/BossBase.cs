@@ -4,17 +4,17 @@ using UnityEngine;
 
 public class BossBase : EnemyBase {
 
-    public HealthBar healthBar;
+    public SlideBar healthBar;
 
     // Start is called before the first frame update
     public override void Start() {
         base.Start();
 
-        healthBar.SetMaxHealth(maxHealth);
+        healthBar.SetMaxValue(maxHealth);
     }
 
     // Update is called once per frame
     void FixedUpdate() {
-        healthBar.SetHealth(currentHealth);
+        healthBar.SetValue(currentHealth);
     }
 }
