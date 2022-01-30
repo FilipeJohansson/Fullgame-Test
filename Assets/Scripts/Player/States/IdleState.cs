@@ -17,9 +17,10 @@ public class PlayerIdleState : PlayerState {
         if (player.horizontalMove != 0)
             stateManager.SwitchState(stateManager.RunningState);
 
-        // if (Input.GetButtonDown("Jump")) {
-        //     //player.animator.SetBool("IsJumping", true);
-        //     player.jump = true;
-        // }
+        if (player.jump)
+            stateManager.SwitchState(stateManager.PlayerJumpState);
+
+        if (player.isAttacking)
+            stateManager.SwitchState(stateManager.PlayerAttackState);
     }
 }
