@@ -357,8 +357,8 @@ MonoBehaviour:
   currentHealth: 0
   damage: 0
   collisionDamage: 5
-  speed: 40
-  attackCooldown: 1
+  speed: 20
+  attackCooldown: 1.5
   attackTimer: 0
   canAttack: 0
   isAttacking: 0
@@ -372,7 +372,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   m_FacingRight: 1
-  spriteRendererFlash: {fileID: 4392837479115031586}
+  spriteRendererFlash: {fileID: 0}
   gameManager: {fileID: 0}
   healthBar: {fileID: 0}
   bossHead: {fileID: 2327735154643751147, guid: 1c4b0d2189f043740be9d56f04099485, type: 3}
