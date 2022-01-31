@@ -12,7 +12,6 @@ public class PlayerBase : MonoBehaviour {
     [SerializeField] public int currentHealth;
     [SerializeField] public int maxStamina;
     [SerializeField] public int currentStamina;
-    [SerializeField] public float damage;
     [SerializeField] public bool isAttacking = false;
     [SerializeField] public bool isJumpAttacking = false;
 
