@@ -44,10 +44,14 @@ public class PlayerBase : MonoBehaviour {
     [SerializeField] public float refreshStaminaTimer = 0;
 
     public bool jump = false;
+    public bool isDead;
     public bool isInTheAir = false;
     public bool isStuned = false;
     public bool isDashing = false;
     public bool isUntargetable = false;
+
+    [Header("Context Attributes")]
+    [SerializeField] protected GameManager gameManager;
 
     // Start is called before the first frame update
     void Start() {
@@ -60,10 +64,14 @@ public class PlayerBase : MonoBehaviour {
 
         simpleFlash = gameObject.GetComponent<SimpleFlash>();
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+        gameManager = GameObject.FindGameObjectWithTag("GM").GetComponent<GameManager>();
     }
 
     // Update is called once per frame
     void Update() {
+        if (isDead || !gameManager.runningGame)
+            return;
+
         handleMovement();
         HandleAttack();
         RrefreshStamina();
@@ -75,6 +83,9 @@ public class PlayerBase : MonoBehaviour {
     }
 
     void FixedUpdate() {
+        if (isDead || !gameManager.runningGame)
+            return;
+
         controller.Move(horizontalMove * Time.fixedDeltaTime, jump);
         jump = false;
 
@@ -192,6 +203,9 @@ public class PlayerBase : MonoBehaviour {
     }
 
     public void Die() {
+        isDead = true;
+        rb.velocity = Vector2.zero;
+        gameManager.runningGame = false;
         StartCoroutine(DeathAnimation(100));
     }
 
@@ -206,6 +220,8 @@ public class PlayerBase : MonoBehaviour {
             yield return null;
         }
         spriteRenderer.color = deathColor; //without this, the value will end at something like 0.9992367
+
+        gameManager.PauseGame();
     }
 
     IEnumerator StunCoroutine(float duration) {

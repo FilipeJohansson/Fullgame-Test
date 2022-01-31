@@ -31,7 +31,7 @@ public class EnemyBase : MonoBehaviour {
     public List<IAttack> attacks;
 
     [Header("Context Attributes")]
-    [SerializeField] protected GameManager gameManager;
+    [SerializeField] public GameManager gameManager;
 
     // Start is called before the first frame update
     public virtual void Start() {
@@ -44,6 +44,9 @@ public class EnemyBase : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
+        if (!gameManager.runningGame)
+            return;
+
         VerifyRangeAttack();
 
         Collider2D[] player = Physics2D.OverlapBoxAll(bodyDamagePoint.position, new Vector2(bodyDamageX, bodyDamageY), 0, whatIsPlayer);

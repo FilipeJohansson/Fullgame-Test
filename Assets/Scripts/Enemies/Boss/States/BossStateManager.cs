@@ -8,6 +8,7 @@ public class BossStateManager : MonoBehaviour {
     public WalkState WalkState = new WalkState();
     public AttackState AttackState = new AttackState();
     public DashState DashState = new DashState();
+    public IdleState IdleState = new IdleState();
 
     public Animator animator;
     public BossBase bossBase;
@@ -25,6 +26,11 @@ public class BossStateManager : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
+        if (!bossBase.gameManager.runningGame) {
+            if (currentState != IdleState)
+                SwitchState(IdleState);
+            return;
+        }
         currentState.UpdateState(this, bossBase);
     }
 
