@@ -15,8 +15,8 @@ public class BossBase : EnemyBase {
     }
 
     // Update is called once per frame
-    void FixedUpdate() {
-        healthBar.SetValue(currentHealth);
+    void Update() {
+        RefreshHealtBar();
     }
 
     public void DashAttack() {
@@ -25,6 +25,7 @@ public class BossBase : EnemyBase {
     }
 
     public override void Die() {
+        RefreshHealtBar();
         InstantiateHead();
         base.Die();
     }
@@ -35,6 +36,10 @@ public class BossBase : EnemyBase {
         head.transform.localScale = transform.localScale;
 
         headRb.AddForce(new Vector2(.02f, 3), ForceMode2D.Impulse);
+    }
+
+    private void RefreshHealtBar() {
+        healthBar.SetValue(currentHealth);
     }
 
     private void OnCollisionEnter2D(Collision2D other) {
