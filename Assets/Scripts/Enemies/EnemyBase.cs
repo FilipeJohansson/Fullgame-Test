@@ -48,10 +48,10 @@ public class EnemyBase : MonoBehaviour {
             return;
 
         VerifyRangeAttack();
+    }
 
-        Collider2D[] player = Physics2D.OverlapBoxAll(bodyDamagePoint.position, new Vector2(bodyDamageX, bodyDamageY), 0, whatIsPlayer);
-        if (player.Length > 0)
-            GameManager.Player.gameObject.GetComponent<PlayerBase>().TakeDamage(collisionDamage);
+    void Update() {
+        VerifyBodyDamage();
     }
 
     public void ResetAttackTimer() {
@@ -103,6 +103,12 @@ public class EnemyBase : MonoBehaviour {
             inAttackRange = true;
         else
             inAttackRange = false;
+    }
+
+    public void VerifyBodyDamage() {
+        Collider2D[] player = Physics2D.OverlapBoxAll(bodyDamagePoint.position, new Vector2(bodyDamageX, bodyDamageY), 0, whatIsPlayer);
+        if (player.Length > 0)
+            GameManager.Player.gameObject.GetComponent<PlayerBase>().TakeDamage(collisionDamage);
     }
 
     public virtual void Die() {
