@@ -35,7 +35,7 @@ public class BossBase : EnemyBase {
         Rigidbody2D headRb = head.GetComponent<Rigidbody2D>();
         head.transform.localScale = transform.localScale;
 
-        headRb.AddForce(new Vector2(.02f, 3), ForceMode2D.Impulse);
+        headRb.AddForce(new Vector2(.01f, 1f), ForceMode2D.Impulse);
     }
 
     private void RefreshHealtBar() {
