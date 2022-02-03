@@ -475,6 +475,26 @@ PrefabInstance:
       propertyPath: stunnedDuration
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 9057112841492341833, guid: 847ff63ea084940f79c4daad69718086, type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
+    - target: {fileID: 9057112841492341839, guid: 847ff63ea084940f79c4daad69718086, type: 3}
+      propertyPath: m_Size.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9057112841492341839, guid: 847ff63ea084940f79c4daad69718086, type: 3}
+      propertyPath: m_Size.y
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9057112841492341839, guid: 847ff63ea084940f79c4daad69718086, type: 3}
+      propertyPath: m_Offset.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9057112841492341839, guid: 847ff63ea084940f79c4daad69718086, type: 3}
+      propertyPath: m_Offset.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9057112843211792888, guid: 847ff63ea084940f79c4daad69718086, type: 3}
       propertyPath: m_Size.x
       value: 1.5
