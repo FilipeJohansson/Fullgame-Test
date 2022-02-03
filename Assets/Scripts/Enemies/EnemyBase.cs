@@ -48,9 +48,6 @@ public class EnemyBase : MonoBehaviour {
             return;
 
         VerifyRangeAttack();
-    }
-
-    void Update() {
         VerifyBodyDamage();
     }
 
