@@ -8,6 +8,7 @@ public class PlayerBase : MonoBehaviour {
     public Animator animator;
     public SlideBar healthBar;
     public SlideBar staminaBar;
+    
     [SerializeField] public int maxHealth;
     [SerializeField] public int currentHealth;
     [SerializeField] public int maxStamina;
@@ -77,8 +78,10 @@ public class PlayerBase : MonoBehaviour {
 
         if (isUntargetable && untargetableTimer > 0)
             untargetableTimer -= Time.deltaTime;
-        else if (isUntargetable && untargetableTimer <= 0)
+        else if (isUntargetable && untargetableTimer <= 0) {
             isUntargetable = false;
+            untargetableTimer = untargetableCooldown;
+        }
 
         staminaBar.SetValue(currentStamina);
     }
@@ -241,7 +244,6 @@ public class PlayerBase : MonoBehaviour {
 
         rb.gravityScale = 3f;
         isDashing = false;
-        isUntargetable = false;
 
         yield return null;
     }
