@@ -8,7 +8,7 @@ public class PlayerBase : MonoBehaviour {
     public Animator animator;
     public SlideBar healthBar;
     public SlideBar staminaBar;
-    
+
     [SerializeField] public int maxHealth;
     [SerializeField] public int currentHealth;
     [SerializeField] public int maxStamina;
@@ -58,6 +58,7 @@ public class PlayerBase : MonoBehaviour {
         currentHealth = maxHealth;
         currentStamina = maxStamina;
         refreshStaminaTimer = refreshStaminaCooldown;
+        untargetableTimer = untargetableCooldown;
 
         healthBar.SetMaxValue(maxHealth);
         staminaBar.SetMaxValue(maxStamina);
@@ -114,7 +115,7 @@ public class PlayerBase : MonoBehaviour {
     private void RefreshStamina() {
         if (currentStamina == maxStamina)
             return;
-            
+
         if (refreshStaminaTimer > 0)
             refreshStaminaTimer -= Time.deltaTime;
 
