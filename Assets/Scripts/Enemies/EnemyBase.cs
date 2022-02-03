@@ -43,7 +43,7 @@ public class EnemyBase : MonoBehaviour {
     }
 
     // Update is called once per frame
-    void Update() {
+    void FixedUpdate() {
         if (!gameManager.runningGame)
             return;
 

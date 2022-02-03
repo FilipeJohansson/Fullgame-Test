@@ -25,7 +25,7 @@ public class BossStateManager : MonoBehaviour {
     }
 
     // Update is called once per frame
-    void Update() {
+    void FixedUpdate() {
         if (!bossBase.gameManager.runningGame) {
             if (currentState != IdleState)
                 SwitchState(IdleState);

@@ -17,11 +17,9 @@ public class GameManager : MonoBehaviour {
 
     public void PauseGame() {
         Debug.Log("Game Paused");
-        Time.timeScale = 0;
     }
 
     public void StartGame() {
-        Time.timeScale = 1;
         runningGame = true;
     }
 }

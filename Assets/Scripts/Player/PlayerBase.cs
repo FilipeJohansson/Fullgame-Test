@@ -73,12 +73,14 @@ public class PlayerBase : MonoBehaviour {
 
         handleMovement();
         HandleAttack();
-        RrefreshStamina();
+        RefreshStamina();
 
         if (isUntargetable && untargetableTimer > 0)
             untargetableTimer -= Time.deltaTime;
         else if (isUntargetable && untargetableTimer <= 0)
             isUntargetable = false;
+
+        staminaBar.SetValue(currentStamina);
     }
 
     void FixedUpdate() {
@@ -87,8 +89,6 @@ public class PlayerBase : MonoBehaviour {
 
         controller.Move(horizontalMove * Time.fixedDeltaTime, jump);
         jump = false;
-
-        staminaBar.SetValue(currentStamina);
     }
 
     private void HandleAttack() {
@@ -108,7 +108,7 @@ public class PlayerBase : MonoBehaviour {
         }
     }
 
-    private void RrefreshStamina() {
+    private void RefreshStamina() {
         if (currentStamina == maxStamina)
             return;
             

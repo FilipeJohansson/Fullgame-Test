@@ -27,7 +27,7 @@ public class PlayerStateManager : MonoBehaviour {
     }
 
     // Update is called once per frame
-    void Update() {
+    void FixedUpdate() {
         currentState.UpdateState(this, playerBase);
     }
 
