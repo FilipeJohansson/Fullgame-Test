@@ -1458,17 +1458,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 100
-  maxStamina: 5
-  staminaRegenCooldown: 4
-  attackDamage: 25
-  attackCooldown: 0.5
-  attackCheck: {fileID: 1406169477}
-  attackRadius: 0.5
-  isAttacking: 0
-  jumpAttackCheck: {fileID: 94793948}
-  jumpAttackSizeX: 0.8
-  jumpAttackSizeY: 1
-  isJumpAttacking: 0
+  staminaAttributes:
+    maxStamina: 5
+    currentStamina: 0
+    staminaRegenCooldown: 4
+    staminaRegenTimer: 0
+  groundAttackAttributes:
+    attackDamage: 25
+    attackCooldown: 0.5
+    attackTimer: 0
+    attackCheck: {fileID: 1406169477}
+    attackRadius: 0.5
+    isAttacking: 0
+  jumpAttackAttributes:
+    jumpAttackCheck: {fileID: 94793948}
+    jumpAttackSizeX: 0.8
+    jumpAttackSizeY: 1
+    isJumpAttacking: 0
   horizontalMove: 0
   isJumping: 0
   isInTheAir: 0
@@ -1481,16 +1487,17 @@ MonoBehaviour:
     m_Bits: 128
   isDead: 0
   isStuned: 0
-  rigidBody: {fileID: 697698021}
-  controller: {fileID: 697698022}
-  spriteRenderer: {fileID: 697698019}
-  animator: {fileID: 697698027}
-  stunObject: {fileID: 590492151}
-  simpleFlash: {fileID: 697698023}
-  healthBar: {fileID: 2052484612}
-  staminaBar: {fileID: 424972462}
-  camAnimator: {fileID: 519420030}
-  gameManager: {fileID: 0}
+  objectsAttributes:
+    rigidBody: {fileID: 697698021}
+    controller: {fileID: 697698022}
+    spriteRenderer: {fileID: 697698019}
+    animator: {fileID: 697698027}
+    stunObject: {fileID: 590492151}
+    simpleFlash: {fileID: 697698023}
+    healthBar: {fileID: 2052484612}
+    staminaBar: {fileID: 424972462}
+    camAnimator: {fileID: 519420030}
+  gameManager: {fileID: 1314869744}
 --- !u!114 &697698029
 MonoBehaviour:
   m_ObjectHideFlags: 0

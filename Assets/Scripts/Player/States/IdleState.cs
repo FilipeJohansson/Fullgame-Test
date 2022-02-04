@@ -20,7 +20,7 @@ public class PlayerIdleState : PlayerState {
         if (player.isJumping)
             stateManager.SwitchState(stateManager.PlayerJumpState);
 
-        if (player.isAttacking)
+        if (player.groundAttackAttributes.isAttacking)
             stateManager.SwitchState(stateManager.PlayerAttackState);
     }
 }

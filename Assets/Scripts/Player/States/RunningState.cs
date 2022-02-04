@@ -20,7 +20,7 @@ public class PlayerRunningState : PlayerState {
         if (player.horizontalMove == 0 && !player.isInTheAir)
             stateManager.SwitchState(stateManager.PlayerIdleState);
 
-        if (player.isAttacking)
+        if (player.groundAttackAttributes.isAttacking)
             stateManager.SwitchState(stateManager.PlayerAttackState);
     }
 }

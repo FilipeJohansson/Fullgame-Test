@@ -2,84 +2,113 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
+public class StaminaAttributes {
+    [SerializeField] public int maxStamina = 5;
+    [HideInInspector] public int currentStamina;
+    [Tooltip("Time to recover stamina")]
+    [SerializeField] public float staminaRegenCooldown = 4f;
+    [HideInInspector] public float staminaRegenTimer;
+}
+
+[System.Serializable]
+public class GroundAttackAttributes {
+    [SerializeField] public int attackDamage = 25;
+    [Tooltip("Time to can attack again")]
+    [SerializeField] public float attackCooldown = 0.5f;
+    [HideInInspector] public float attackTimer;
+    [Tooltip("Transform of check attack range")]
+    [SerializeField] public Transform attackCheck;
+    [SerializeField] public float attackRadius;
+    [SerializeField] public bool isAttacking = false;
+}
+
+[System.Serializable]
+public class JumpAttackAttributes {
+    [Tooltip("Transform of check jump attack range")]
+    [SerializeField] public Transform jumpAttackCheck;
+    [SerializeField] public float jumpAttackSizeX;
+    [SerializeField] public float jumpAttackSizeY;
+    [SerializeField] public bool isJumpAttacking = false;
+}
+
+[System.Serializable]
+public class ObjectsAttributes {
+    [SerializeField] public Rigidbody2D rigidBody;
+    [SerializeField] public CharacterController2D controller;
+    [SerializeField] public SpriteRenderer spriteRenderer;
+    [SerializeField] public Animator animator;
+    [SerializeField] public GameObject stunObject;
+    [SerializeField] public SimpleFlash simpleFlash;
+    [SerializeField] public SlideBar healthBar;
+    [SerializeField] public SlideBar staminaBar;
+    [SerializeField] public Animator camAnimator;
+}
+
 public class PlayerBase : MonoBehaviour {
+
     [Header("Health Attributes")]
     [SerializeField] private int maxHealth;
     private int currentHealth;
 
-    [Header("Stamina Attributes")]
-    [SerializeField] private int maxStamina;
-    private int currentStamina;
-    [SerializeField] public float staminaRegenCooldown = 4f;
-    private float staminaRegenTimer;
+    [Header("Stamina")]
+    public StaminaAttributes staminaAttributes;
 
-    [Header("Ground Attack Attributes")]
-    [SerializeField] public int attackDamage = 25;
-    [SerializeField] public float attackCooldown = 0.5f;
-    private float attackTimer;
-    [SerializeField] private Transform attackCheck;
-    [SerializeField] private float attackRadius;
-    [SerializeField] public bool isAttacking = false;
+    [Header("Ground Attack")]
+    public GroundAttackAttributes groundAttackAttributes;
 
-    [Header("Jump Attack Attributes")]
-    [SerializeField] private Transform jumpAttackCheck;
-    [SerializeField] private float jumpAttackSizeX;
-    [SerializeField] private float jumpAttackSizeY;
-    [SerializeField] public bool isJumpAttacking = false;
+    [Header("Jump Attack")]
+    public JumpAttackAttributes jumpAttackAttributes;
 
     [Header("Movement Attributes")]
-    public float horizontalMove;
+    [HideInInspector] public float horizontalMove;
 
     [Header("Jump Attributes")]
     public bool isJumping = false;
     public bool isInTheAir = false;
 
     [Header("Dash Attributes")]
+    [Tooltip("Time to can dash again")]
     [SerializeField] public float dashCooldown = 0.5f;
     private float dashTimer;
     public bool isDashing = false;
 
     [Header("Untargetable Attributes")]
+    [Tooltip("Time to can be targetable again")]
     [SerializeField] public float untargetableCooldown = 1f;
     private float untargetableTimer;
     public bool isUntargetable = false;
 
     [Header("Other Attributes")]
+    [Tooltip("LayerMask of the enemies")]
     [SerializeField] private LayerMask whatIsEnemy;
     public bool isDead = false;
     public bool isStuned = false;
 
-    [Header("Objects Attributes")]
-    [SerializeField] public Rigidbody2D rigidBody;
-    public CharacterController2D controller;
-    [SerializeField] private SpriteRenderer spriteRenderer;
-    public Animator animator;
-    [SerializeField] public GameObject stunObject;
-    [SerializeField] private SimpleFlash simpleFlash;
-    public SlideBar healthBar;
-    public SlideBar staminaBar;
-    [SerializeField] public Animator camAnimator;
+    [Header("Objects")]
+    public ObjectsAttributes objectsAttributes;
 
     [Header("Context Attributes")]
     [SerializeField] protected GameManager gameManager;
 
     public void Awake() {
-        simpleFlash = gameObject.GetComponent<SimpleFlash>();
-        spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+        objectsAttributes.simpleFlash = gameObject.GetComponent<SimpleFlash>();
+        objectsAttributes.spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+        objectsAttributes.rigidBody = gameObject.GetComponent<Rigidbody2D>();
+        objectsAttributes.controller = gameObject.GetComponent<CharacterController2D>();
+        objectsAttributes.animator = gameObject.GetComponent<Animator>();
+
         gameManager = GameObject.FindGameObjectWithTag("GM").GetComponent<GameManager>();
-        rigidBody = gameObject.GetComponent<Rigidbody2D>();
-        controller = gameObject.GetComponent<CharacterController2D>();
-        animator = gameObject.GetComponent<Animator>();
     }
 
     void Start() {
         currentHealth = maxHealth;
-        currentStamina = maxStamina;
-        staminaRegenTimer = staminaRegenCooldown;
+        staminaAttributes.currentStamina = staminaAttributes.maxStamina;
+        staminaAttributes.staminaRegenTimer = staminaAttributes.staminaRegenCooldown;
         untargetableTimer = untargetableCooldown;
 
-        healthBar.SetMaxValue(maxHealth);
-        staminaBar.SetMaxValue(maxStamina);
+        objectsAttributes.healthBar.SetMaxValue(maxHealth);
+        objectsAttributes.staminaBar.SetMaxValue(staminaAttributes.maxStamina);
     }
 
     void Update() {
@@ -91,14 +120,14 @@ public class PlayerBase : MonoBehaviour {
         RefreshStamina();
         RefreshUntargetable();
 
-        staminaBar.SetValue(currentStamina);
+        objectsAttributes.staminaBar.SetValue(staminaAttributes.currentStamina);
     }
 
     void FixedUpdate() {
         if (isDead || !gameManager.runningGame)
             return;
 
-        controller.Move(horizontalMove * Time.fixedDeltaTime, isJumping);
+        objectsAttributes.controller.Move(horizontalMove * Time.fixedDeltaTime, isJumping);
         isJumping = false;
     }
 
@@ -107,34 +136,34 @@ public class PlayerBase : MonoBehaviour {
         if (isStuned)
             return;
 
-        if (attackTimer > 0)
-            attackTimer -= Time.deltaTime;
+        if (groundAttackAttributes.attackTimer > 0)
+            groundAttackAttributes.attackTimer -= Time.deltaTime;
 
-        if (Input.GetButtonDown("Attack") && attackTimer <= 0) {
-            attackTimer = attackCooldown;
+        if (Input.GetButtonDown("Attack") && groundAttackAttributes.attackTimer <= 0) {
+            groundAttackAttributes.attackTimer = groundAttackAttributes.attackCooldown;
 
             if (isInTheAir) {
-                if (currentStamina > 0) {
-                    isJumpAttacking = true;
+                if (staminaAttributes.currentStamina > 0) {
+                    jumpAttackAttributes.isJumpAttacking = true;
 
-                    currentStamina--;
-                    staminaBar.SetValue(currentStamina);
+                    staminaAttributes.currentStamina--;
+                    objectsAttributes.staminaBar.SetValue(staminaAttributes.currentStamina);
                 }
             } else
-                isAttacking = true;
+                groundAttackAttributes.isAttacking = true;
         }
     }
 
     private void RefreshStamina() {
-        if (currentStamina == maxStamina)
+        if (staminaAttributes.currentStamina == staminaAttributes.maxStamina)
             return;
 
-        if (staminaRegenTimer > 0)
-            staminaRegenTimer -= Time.deltaTime;
+        if (staminaAttributes.staminaRegenTimer > 0)
+            staminaAttributes.staminaRegenTimer -= Time.deltaTime;
 
-        if (staminaRegenTimer <= 0) {
-            currentStamina++;
-            staminaRegenTimer = staminaRegenCooldown;
+        if (staminaAttributes.staminaRegenTimer <= 0) {
+            staminaAttributes.currentStamina++;
+            staminaAttributes.staminaRegenTimer = staminaAttributes.staminaRegenCooldown;
         }
     }
 
@@ -155,16 +184,16 @@ public class PlayerBase : MonoBehaviour {
             dashTimer -= Time.deltaTime;
 
         if (Input.GetButtonDown("Dash") && dashTimer <= 0) {
-            if (currentStamina > 0) {
+            if (staminaAttributes.currentStamina > 0) {
                 dashTimer = dashCooldown;
 
-                currentStamina--;
-                staminaBar.SetValue(currentStamina);
+                staminaAttributes.currentStamina--;
+                objectsAttributes.staminaBar.SetValue(staminaAttributes.currentStamina);
                 StartCoroutine(DashCoroutine(0.1f));
             }
         }
 
-        horizontalMove = Input.GetAxisRaw("Horizontal") * controller.runSpeed;
+        horizontalMove = Input.GetAxisRaw("Horizontal") * objectsAttributes.controller.runSpeed;
 
         if (Input.GetButtonDown("Jump")) {
             isJumping = true;
@@ -175,23 +204,23 @@ public class PlayerBase : MonoBehaviour {
     // Public methods
     public void onLanding() {
         isInTheAir = false;
-        isAttacking = false;
-        isJumpAttacking = false;
+        groundAttackAttributes.isAttacking = false;
+        jumpAttackAttributes.isJumpAttacking = false;
     }
 
     public void TakeDamage(int amount) {
         if (isUntargetable)
             return;
 
-        camAnimator.SetTrigger("Shake");
+        objectsAttributes.camAnimator.SetTrigger("Shake");
 
         isUntargetable = true;
         untargetableTimer = untargetableCooldown;
 
         currentHealth -= amount;
-        healthBar.SetValue(currentHealth);
+        objectsAttributes.healthBar.SetValue(currentHealth);
 
-        simpleFlash.Flash();
+        objectsAttributes.simpleFlash.Flash();
 
         if (currentHealth <= 0)
             Die();
@@ -203,49 +232,49 @@ public class PlayerBase : MonoBehaviour {
 
         horizontalMove = 0;
         isStuned = true;
-        stunObject.SetActive(true);
+        objectsAttributes.stunObject.SetActive(true);
         StartCoroutine(StunCoroutine(duration));
     }
 
     public void Attack() {
-        Collider2D[] enemies = Physics2D.OverlapCircleAll(attackCheck.position, attackRadius, whatIsEnemy);
+        Collider2D[] enemies = Physics2D.OverlapCircleAll(groundAttackAttributes.attackCheck.position, groundAttackAttributes.attackRadius, whatIsEnemy);
 
         foreach (Collider2D enemy in enemies)
-            enemy.GetComponent<EnemyBase>().TakeDamage(attackDamage);
+            enemy.GetComponent<EnemyBase>().TakeDamage(groundAttackAttributes.attackDamage);
     }
 
     public void JumpAttack() {
-        Collider2D[] enemies = Physics2D.OverlapBoxAll(jumpAttackCheck.position, new Vector2(jumpAttackSizeX, jumpAttackSizeY), 0, whatIsEnemy);
+        Collider2D[] enemies = Physics2D.OverlapBoxAll(jumpAttackAttributes.jumpAttackCheck.position, new Vector2(jumpAttackAttributes.jumpAttackSizeX, jumpAttackAttributes.jumpAttackSizeY), 0, whatIsEnemy);
 
         foreach (Collider2D enemy in enemies)
-            enemy.GetComponent<EnemyBase>().TakeDamage(attackDamage);
+            enemy.GetComponent<EnemyBase>().TakeDamage(groundAttackAttributes.attackDamage);
 
-        controller.ApplyNegativeForce();
+        objectsAttributes.controller.ApplyNegativeForce();
     }
 
     public void ResetAttack() {
-        isAttacking = false;
-        isJumpAttacking = false;
+        groundAttackAttributes.isAttacking = false;
+        jumpAttackAttributes.isJumpAttacking = false;
     }
 
     public void Die() {
         isDead = true;
-        rigidBody.velocity = Vector2.zero;
+        objectsAttributes.rigidBody.velocity = Vector2.zero;
         gameManager.runningGame = false;
         StartCoroutine(DeathAnimation(100));
     }
 
     IEnumerator DeathAnimation(float duration) {
-        Color deathColor = spriteRenderer.color;
+        Color deathColor = objectsAttributes.spriteRenderer.color;
         deathColor.a = 0;
 
         for (float t = 0f; t < duration; t += Time.deltaTime) {
             float normalizedTime = t / duration;
             //right here, you can now use normalizedTime as the third parameter in any Lerp from start to end
-            spriteRenderer.color = Color.Lerp(spriteRenderer.color, deathColor, normalizedTime);
+            objectsAttributes.spriteRenderer.color = Color.Lerp(objectsAttributes.spriteRenderer.color, deathColor, normalizedTime);
             yield return null;
         }
-        spriteRenderer.color = deathColor; //without this, the value will end at something like 0.9992367
+        objectsAttributes.spriteRenderer.color = deathColor; //without this, the value will end at something like 0.9992367
 
         gameManager.PauseGame();
     }
@@ -253,20 +282,20 @@ public class PlayerBase : MonoBehaviour {
     IEnumerator StunCoroutine(float duration) {
         yield return new WaitForSeconds(duration);
         isStuned = false;
-        stunObject.SetActive(false);
+        objectsAttributes.stunObject.SetActive(false);
         yield return null;
     }
 
     IEnumerator DashCoroutine(float duration) {
         isDashing = true;
         isUntargetable = true;
-        float oldGravity = rigidBody.gravityScale;
-        rigidBody.gravityScale = 0;
-        rigidBody.AddForce(new Vector2(2 * horizontalMove, 0), ForceMode2D.Impulse);
+        float oldGravity = objectsAttributes.rigidBody.gravityScale;
+        objectsAttributes.rigidBody.gravityScale = 0;
+        objectsAttributes.rigidBody.AddForce(new Vector2(2 * horizontalMove, 0), ForceMode2D.Impulse);
 
         yield return new WaitForSeconds(duration);
 
-        rigidBody.gravityScale = 3f;
+        objectsAttributes.rigidBody.gravityScale = 3f;
         isDashing = false;
 
         yield return null;
@@ -274,8 +303,8 @@ public class PlayerBase : MonoBehaviour {
 
     private void OnDrawGizmosSelected() {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(attackCheck.position, attackRadius);
+        Gizmos.DrawWireSphere(groundAttackAttributes.attackCheck.position, groundAttackAttributes.attackRadius);
 
-        Gizmos.DrawWireCube(jumpAttackCheck.position, new Vector3(jumpAttackSizeX, jumpAttackSizeY, 0));
+        Gizmos.DrawWireCube(jumpAttackAttributes.jumpAttackCheck.position, new Vector3(jumpAttackAttributes.jumpAttackSizeX, jumpAttackAttributes.jumpAttackSizeY, 0));
     }
 }

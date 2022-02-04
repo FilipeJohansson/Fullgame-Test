@@ -15,7 +15,7 @@ public class PlayerJumpAttackState : PlayerState {
     }
 
     public override void UpdateState(PlayerStateManager stateManager, PlayerBase player) {
-        if (!player.isJumpAttacking)
+        if (!player.jumpAttackAttributes.isJumpAttacking)
             stateManager.SwitchState(stateManager.PlayerJumpState);
     }
 }
