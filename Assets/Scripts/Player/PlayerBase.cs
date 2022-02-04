@@ -43,6 +43,8 @@ public class PlayerBase : MonoBehaviour {
     [SerializeField] public float refreshStaminaCooldown = 2f;
     [SerializeField] public float refreshStaminaTimer = 0;
 
+    [SerializeField] public Animator camAnimator;
+
     public bool jump = false;
     public bool isDead;
     public bool isInTheAir = false;
@@ -166,6 +168,8 @@ public class PlayerBase : MonoBehaviour {
     public void TakeDamage(int amount) {
         if (isUntargetable)
             return;
+
+        camAnimator.SetTrigger("Shake");
 
         isUntargetable = true;
         untargetableTimer = untargetableCooldown;
