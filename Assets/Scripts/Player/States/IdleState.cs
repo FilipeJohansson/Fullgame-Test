@@ -17,7 +17,7 @@ public class PlayerIdleState : PlayerState {
         if (player.horizontalMove != 0 && !player.isInTheAir)
             stateManager.SwitchState(stateManager.RunningState);
 
-        if (player.jump)
+        if (player.isJumping)
             stateManager.SwitchState(stateManager.PlayerJumpState);
 
         if (player.isAttacking)
