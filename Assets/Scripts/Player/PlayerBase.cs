@@ -39,7 +39,6 @@ public class PlayerBase : MonoBehaviour {
     private float dashTimer;
     public bool isDashing = false;
 
-    // [Header("Ground Check Attributes")]
     [Header("Untargetable Attributes")]
     [SerializeField] public float untargetableCooldown = 1f;
     private float untargetableTimer;
