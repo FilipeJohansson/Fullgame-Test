@@ -12,11 +12,10 @@ public class PlayerJumpAttackState : PlayerState {
 
     public override void ExitState(PlayerStateManager stateManager, PlayerBase player) {
         stateManager.animator.ResetTrigger(animationName);
-        player.untargetableTimer = player.untargetableCooldown;
     }
 
     public override void UpdateState(PlayerStateManager stateManager, PlayerBase player) {
-        if (!player.isJumpAttacking)
+        if (!player.jumpAttackAttributes.isJumpAttacking)
             stateManager.SwitchState(stateManager.PlayerJumpState);
     }
 }
