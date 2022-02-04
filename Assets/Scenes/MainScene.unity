@@ -1539,7 +1539,7 @@ MonoBehaviour:
   staminaBar: {fileID: 424972462}
   maxHealth: 100
   currentHealth: 0
-  maxStamina: 3
+  maxStamina: 5
   currentStamina: 0
   isAttacking: 0
   isJumpAttacking: 0

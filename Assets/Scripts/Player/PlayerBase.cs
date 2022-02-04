@@ -105,9 +105,14 @@ public class PlayerBase : MonoBehaviour {
         if (Input.GetButtonDown("Attack") && attackTimer <= 0) {
             attackTimer = attackCooldown;
 
-            if (isInTheAir)
-                isJumpAttacking = true;
-            else
+            if (isInTheAir) {
+                if (currentStamina > 0) {
+                    isJumpAttacking = true;
+
+                    currentStamina--;
+                    staminaBar.SetValue(currentStamina);
+                }
+            } else
                 isAttacking = true;
         }
     }
