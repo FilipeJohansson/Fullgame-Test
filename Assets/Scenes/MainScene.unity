@@ -1459,15 +1459,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 100
   maxStamina: 5
-  staminaRegen: 2
+  staminaRegenCooldown: 4
   attackDamage: 25
   attackCooldown: 0.5
   attackCheck: {fileID: 1406169477}
   attackRadius: 0.5
   isAttacking: 0
   jumpAttackCheck: {fileID: 94793948}
-  jumpAttackSizeX: 0
-  jumpAttackSizeY: 0
+  jumpAttackSizeX: 0.8
+  jumpAttackSizeY: 1
   isJumpAttacking: 0
   horizontalMove: 0
   isJumping: 0

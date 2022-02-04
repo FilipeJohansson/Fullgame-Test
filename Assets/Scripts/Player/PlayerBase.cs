@@ -10,13 +10,13 @@ public class PlayerBase : MonoBehaviour {
     [Header("Stamina Attributes")]
     [SerializeField] private int maxStamina;
     private int currentStamina;
-    [SerializeField] public float staminaRegen = 2f;
-    private float staminaRegenTimer = 0;
+    [SerializeField] public float staminaRegenCooldown = 4f;
+    private float staminaRegenTimer;
 
     [Header("Ground Attack Attributes")]
-    [SerializeField] public int attackDamage = 3;
+    [SerializeField] public int attackDamage = 25;
     [SerializeField] public float attackCooldown = 0.5f;
-    private float attackCooldownTimer = 0;
+    private float attackTimer;
     [SerializeField] private Transform attackCheck;
     [SerializeField] private float attackRadius;
     [SerializeField] public bool isAttacking = false;
@@ -36,13 +36,13 @@ public class PlayerBase : MonoBehaviour {
 
     [Header("Dash Attributes")]
     [SerializeField] public float dashCooldown = 0.5f;
-    private float dashTimer = 0;
+    private float dashTimer;
     public bool isDashing = false;
 
     // [Header("Ground Check Attributes")]
     [Header("Untargetable Attributes")]
-    [SerializeField] public float untargetableCooldown = 0.5f;
-    private float untargetableTimer = 0;
+    [SerializeField] public float untargetableCooldown = 1f;
+    private float untargetableTimer;
     public bool isUntargetable = false;
 
     [Header("Other Attributes")]
@@ -76,7 +76,7 @@ public class PlayerBase : MonoBehaviour {
     void Start() {
         currentHealth = maxHealth;
         currentStamina = maxStamina;
-        staminaRegenTimer = staminaRegen;
+        staminaRegenTimer = staminaRegenCooldown;
         untargetableTimer = untargetableCooldown;
 
         healthBar.SetMaxValue(maxHealth);
@@ -108,11 +108,11 @@ public class PlayerBase : MonoBehaviour {
         if (isStuned)
             return;
 
-        if (attackCooldownTimer > 0)
-            attackCooldownTimer -= Time.deltaTime;
+        if (attackTimer > 0)
+            attackTimer -= Time.deltaTime;
 
-        if (Input.GetButtonDown("Attack") && attackCooldownTimer <= 0) {
-            attackCooldownTimer = attackCooldown;
+        if (Input.GetButtonDown("Attack") && attackTimer <= 0) {
+            attackTimer = attackCooldown;
 
             if (isInTheAir) {
                 if (currentStamina > 0) {
@@ -135,7 +135,7 @@ public class PlayerBase : MonoBehaviour {
 
         if (staminaRegenTimer <= 0) {
             currentStamina++;
-            staminaRegenTimer = staminaRegen;
+            staminaRegenTimer = staminaRegenCooldown;
         }
     }
 
