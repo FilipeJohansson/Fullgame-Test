@@ -4,13 +4,19 @@ using UnityEngine;
 
 public class Arrow : MonoBehaviour, IAttack {
     protected GameObject owner;
+    private Rigidbody2D rigidbody;
     public int attackDamage = 10;
     public float speed = 10f;
 
     public float timeToDestroy = 5;
 
+    void Start() {
+        rigidbody = GetComponent<Rigidbody2D>();
+    }
+
     void Update() {
-        transform.Translate(Vector2.right * Time.deltaTime * speed);
+        // transform.Translate(Vector2.right * Time.deltaTime * speed);
+        rigidbody.velocity = transform.right * speed;
 
         timeToDestroy -= Time.deltaTime;
         if (timeToDestroy <= 0)

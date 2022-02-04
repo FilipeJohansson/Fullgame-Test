@@ -132,7 +132,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 94793948}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: JumpAttackCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -475,6 +475,18 @@ PrefabInstance:
       propertyPath: stunnedDuration
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4935020225849659621, guid: 847ff63ea084940f79c4daad69718086, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5252491600316602437, guid: 847ff63ea084940f79c4daad69718086, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7198607892571313709, guid: 847ff63ea084940f79c4daad69718086, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9057112841492341833, guid: 847ff63ea084940f79c4daad69718086, type: 3}
       propertyPath: m_Icon
       value: 
@@ -493,6 +505,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9057112841492341839, guid: 847ff63ea084940f79c4daad69718086, type: 3}
       propertyPath: m_Offset.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9057112842258125998, guid: 847ff63ea084940f79c4daad69718086, type: 3}
+      propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9057112843211792888, guid: 847ff63ea084940f79c4daad69718086, type: 3}
@@ -768,7 +784,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 430493998}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: BodyDamagePoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -978,7 +994,7 @@ GameObject:
   - component: {fileID: 590492152}
   - component: {fileID: 590492154}
   - component: {fileID: 590492153}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Stun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1078,7 +1094,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 629449646}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Bow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1183,7 +1199,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 642059347}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: GroundCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1202,7 +1218,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 697698020}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &689520492
 GameObject:
@@ -1373,9 +1389,9 @@ Transform:
   m_LocalPosition: {x: -5.09, y: -3.21, z: 0}
   m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   m_Children:
+  - {fileID: 1117688417}
   - {fileID: 642059347}
   - {fileID: 1406169477}
-  - {fileID: 1117688417}
   - {fileID: 94793948}
   - {fileID: 590492152}
   m_Father: {fileID: 0}
@@ -3430,7 +3446,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 697698020}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &1117688418
 BoxCollider2D:
@@ -3542,7 +3558,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1257503109}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: AttackPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3767,7 +3783,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1406169477}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: AttackCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3786,7 +3802,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 697698020}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1482067923
 GameObject:
