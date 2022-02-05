@@ -11,18 +11,10 @@ public class Archer : EnemyBase {
         base.Start();
     }
 
-    // Update is called once per frame
-    void Update() {
-
-    }
-
     public void InstantiateArrow() {
         GameObject arrow = GameObject.Instantiate(arrowPrefab, bow.position, Quaternion.identity);
-        arrow.GetComponent<Arrow>().SetDirection(m_FacingRight);
-        // GameObject arrow = GameObject.Instantiate(arrowPrefab, new Vector3(transform.position.x, transform.position.y + .5f, 0), new Quaternion(transform.rotation.x, -180, transform.rotation.z, transform.rotation.w));
-        // Rigidbody2D headRb = arrow.GetComponent<Rigidbody2D>();
-        // arrow.transform.localScale = transform.localScale;
-
-        // headRb.AddForce(new Vector2(.01f, 1f), ForceMode2D.Impulse);
+        // arrow.GetComponent<Arrow>().SetDirection(m_FacingRight);
+        arrow.GetComponent<Arrow>().SetOwner(bow.gameObject);
+        arrow.GetComponent<Arrow>().SetTarget(gameManager.ts_Player);
     }
 }

@@ -97,15 +97,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 992d5c5f3f53ad746b0f422f49839bc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rigidBody: {fileID: 2974208320605691496}
+  movePosition: {x: 0, y: 0, z: 0}
   attackDamage: 10
   speed: 15
   timeToDestroy: 5
-  arrowColliderX: 0.87
-  arrowColliderY: 0.12
-  whatIsToCollide:
-    serializedVersion: 2
-    m_Bits: 8
 --- !u!50 &2974208320605691496
 Rigidbody2D:
   serializedVersion: 4
@@ -125,7 +120,7 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 0
 --- !u!61 &2811207084112659513
 BoxCollider2D:
